@@ -190,7 +190,7 @@ fi
 
 xcodebuild_args+=(
     -project "$source_copy/WireGuard.xcodeproj"
-    -target WireGuardmacOS
+    -scheme AmneziaWG
     -configuration "$configuration"
     -derivedDataPath "$derived_data"
 )
