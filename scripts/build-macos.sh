@@ -216,8 +216,8 @@ app_path="$derived_data/Build/Products/$configuration/AmneziaWG.app"
 # Go-тулчейн для darwin шьёт в LC_BUILD_VERSION.minos 13.0/11.0 (зависит от версии
 # toolchain); Catalina смотрит эту load-команду при запуске и отказывается. Сбрасываем
 # minos в 10.15.8 ДО подписи, чтобы codesign --verify прошёл по уже исправленному бинарнику.
-if [[ -f "$script_dir/patch-macho-minos.py" ]]; then
-    python3 "$script_dir/patch-macho-minos.py" "$app_path" "${AWG_MIN_MACOS_VERSION:-10.15.8}"
+if [[ -f "$project_root/scripts/patch-macho-minos.py" ]]; then
+    python3 "$project_root/scripts/patch-macho-minos.py" "$app_path" "${AWG_MIN_MACOS_VERSION:-10.15.8}"
 else
     echo "warning: patch-macho-minos.py not found; minos may stay 11.0/13.0"
 fi
