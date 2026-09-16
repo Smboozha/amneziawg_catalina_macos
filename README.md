@@ -1,3 +1,24 @@
+## macOS-сборка (AmneziaWG.app → DMG)
+
+Этот репозиторий — форк `amneziawg-apple` от «LevxorCrypto/amneziawg-macOS»,
+дороженный под **macOS 10.15 (Catalina)** и новее: deployment target понижен
+до `10.15` во всех целях, проекте и `Package.swift`, совместимость по коду
+проверена (AppKit/NetworkExtension/os.log — всё есть в Catalina).
+
+Сборка без подписи (ad-hoc) — для локальной разработки и для получения
+устанавливаемого DMG:
+  1. Распакуй репозиторий на Mac с Xcode.
+  2. `scripts/build-macos-dmg.sh` — соберёт `.app` и упакует в DMG
+     (drag-and-drop в /Applications).
+  3. Для полностью работающего Packet Tunnel нужна подпись с Network
+     Extension capability (см. docs/macos-signing.md).
+
+Ограничения macOS 10.15.x:
+- Apple-подпись и DMG собираются только на macOS (Xcode + hdiutil); кросс‑
+  компиляция с Linux невозможна.
+- GitHub Actions собирает DMG на `macos-15` раннере и отдаёт его как артефакт.
+
+
 # [WireGuard](https://www.wireguard.com/) for iOS and macOS
 
 This project contains an application for iOS and for macOS, as well as many components shared between the two of them. You may toggle between the two platforms by selecting the target from within Xcode.
@@ -98,22 +119,3 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## macOS-сборка (AmneziaWG.app → DMG)
-
-Этот репозиторий — форк `amneziawg-apple` от «LevxorCrypto/amneziawg-macOS»,
-дороженный под **macOS 10.15 (Catalina)** и новее: deployment target понижен
-до `10.15` во всех целях, проекте и `Package.swift`, совместимость по коду
-проверена (AppKit/NetworkExtension/os.log — всё есть в Catalina).
-
-Сборка без подписи (ad-hoc) — для локальной разработки и для получения
-устанавливаемого DMG:
-  1. Распакуй репозиторий на Mac с Xcode.
-  2. `scripts/build-macos-dmg.sh` — соберёт `.app` и упакует в DMG
-     (drag-and-drop в /Applications).
-  3. Для полностью работающего Packet Tunnel нужна подпись с Network
-     Extension capability (см. docs/macos-signing.md).
-
-Ограничения macOS 10.15.x:
-- Apple-подпись и DMG собираются только на macOS (Xcode + hdiutil); кросс‑
-  компиляция с Linux невозможна.
-- GitHub Actions собирает DMG на `macos-15` раннере и отдаёт его как артефакт.
