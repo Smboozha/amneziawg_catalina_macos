@@ -178,12 +178,14 @@ if [[ "$signing_mode" == "signed" ]]; then
     [[ -n "${DEVELOPMENT_TEAM:-}" ]] || die "signed mode requires DEVELOPMENT_TEAM"
     xcodebuild_args+=(CODE_SIGN_IDENTITY="Mac Developer" DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM")
 else
-    # Ad-hoc / unsigned local build.
+    # Ad-hoc / unsigned local build: подписываем ad-hoc (identity "-"),
+    # чтобы .app был валидно подписан для проверок (codesign --verify,
+    # Gatekeeper на локальном запуске). Реальная подпись не нужна.
     signing_args+=(
         CODE_SIGN_IDENTITY="-"
         CODE_SIGN_STYLE=Manual
-        CODE_SIGNING_REQUIRED=NO
-        CODE_SIGNING_ALLOWED=NO
+        CODE_SIGNING_ALLOWED=YES
+        CODE_SIGNING_REQUIRED=YES
         DEVELOPMENT_TEAM=""
     )
 fi
